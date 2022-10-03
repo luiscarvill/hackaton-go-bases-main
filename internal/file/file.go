@@ -51,10 +51,12 @@ func (f *File) Write(s []service.Ticket) error {
 	f.definePath()
 	strDt, err := OrderData(s)
 	if err != nil {
-		panic("Error al ordenar la informacion para generar el archivo")
+		return errors.New("Error al ordenar la informacion para crear el archivo")
 	}
-	os.WriteFile(f.path, []byte(strDt), 644)
-
+	errF := os.WriteFile(f.path, []byte(strDt), 644)
+	if errF != nil {
+		return errors.New("No se pudo escribir el archivo")
+	}
 	return nil
 }
 

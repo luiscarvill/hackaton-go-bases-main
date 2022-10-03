@@ -61,5 +61,8 @@ func main() {
 	fmt.Println("Return create ==>", dataCreat)
 	//============= END TEST =============
 	// WRITE FILE
-	fil.Write(tickets)
+	errF := fil.Write(tickets)
+	if err != nil {
+		panic(errF)
+	}
 }

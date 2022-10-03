@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	var tickets []service.Ticket
 	fil := file.File{}
 	// 1. Se lee el archivo para sacar los registros
 	tickets, err := fil.Read()
@@ -18,10 +17,7 @@ func main() {
 	// Funcion para obtener tickets del archivo csv
 	dataBook := service.NewBookings(tickets)
 
-	//fmt.Println(dataBook)
-
 	//=============  TEST ==================
-
 	//=============  READ FILE ==================
 	read1, errRead := dataBook.Read(9)
 	if errRead != nil {
@@ -50,7 +46,7 @@ func main() {
 	}
 	fmt.Println("Return delete==>", deleteDt)
 	//=============  CREATE FILE ==================
-	dataBook.Create(
+	dataCreat, errCt := dataBook.Create(
 		service.Ticket{
 			Id:          11,
 			Date:        "1:44",
@@ -59,6 +55,10 @@ func main() {
 			Destination: "Colombia",
 			Price:       532_000,
 		})
+	if errCt != nil {
+		panic(errCt)
+	}
+	fmt.Println("Return create ==>", dataCreat)
 	//============= END TEST =============
 	// WRITE FILE
 	fil.Write(tickets)

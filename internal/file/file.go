@@ -1,6 +1,7 @@
 package file
 
 import (
+	"errors"
 	"os"
 	"strconv"
 	"strings"
@@ -24,7 +25,7 @@ func (f *File) Read() ([]service.Ticket, error) {
 
 	data, err := os.ReadFile(f.path)
 	if err != nil {
-		panic("Error al leer el archivo")
+		return tickts, errors.New("Error al leer el archivo")
 	}
 	splitDt := strings.Split(string(data), "\n")
 

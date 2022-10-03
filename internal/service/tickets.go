@@ -1,5 +1,7 @@
 package service
 
+import "errors"
+
 type Bookings interface {
 	// Create create a new Ticket
 	Create(t Ticket) (Ticket, error)
@@ -29,7 +31,7 @@ func NewBookings(Tickets []Ticket) Bookings {
 func (b *bookings) Create(t Ticket) (Ticket, error) {
 	_, err := FindIndex(b.Tickets, t.Id)
 	if err == true {
-		panic("El ticket a crear ya existe")
+		return t, errors.New("El id ya se encuentra registrado (no se puede crear)")
 	}
 	//TODO error cuando uno de los datos no exista. (Ticket)
 	b.Tickets = append(b.Tickets, t)
@@ -45,7 +47,7 @@ func (b *bookings) Read(id int) (Ticket, error) {
 	}
 
 	//TODO error" no se escontro el ticket con el id enviado
-	panic("no se encontro el id del ticket enviado")
+	return Ticket{}, errors.New("No se escontro el ticket con el id enviado")
 
 }
 
@@ -60,13 +62,13 @@ func (b *bookings) Update(id int, t Ticket) (Ticket, error) {
 			return v, nil
 		}
 	}
-	panic("no se encontro el id del ticket enviado")
+	return Ticket{}, errors.New("No se escontro el ticket con el id enviado")
 }
 
 func (b *bookings) Delete(id int) (int, error) {
 	index, err := FindIndex(b.Tickets, id)
 	if err == true {
-		panic("No se pudo encontrar el ticket a borrar")
+		return 0, errors.New("No se pudo encontrar el ticket a borrar")
 	}
 	b.Tickets = append(b.Tickets[0:index],
 		b.Tickets[index+1:len(b.Tickets)]...)

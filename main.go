@@ -53,8 +53,9 @@ func main() {
 		})
 	//read2, errRead := dataBook.Read(1)
 	//fmt.Println(read2)
-	fil.Write(tickets)
-	//============= END TEST =============
 
+	//============= END TEST =============
+	// WRITE FILE
+	fil.Write(tickets)
 	//fmt.Println(dataBook)
 }
